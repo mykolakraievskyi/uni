@@ -34,7 +34,7 @@ Chart.register(
   imports: [BaseChartDirective, FormsModule, MatSlideToggleModule],
 })
 export class StatisticsTabComponent implements OnInit {
-  data: number[] = [0.3, 0.29, 0.32, 0.36, 0.37, 0.37, 0.42, 0.4];
+  data: number[] = [0.29, 0.35, 0.34, 0.42, 0.47, 0.6, 0.91];
   public average: number = 0;
   public median: number = 0;
   public mode: number[] | null = null;
