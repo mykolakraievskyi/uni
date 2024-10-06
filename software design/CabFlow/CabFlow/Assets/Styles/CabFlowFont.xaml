@@ -1,0 +1,7 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="TextElement">
+        <Setter Property="FontFamily" Value="{StaticResource NunitoRegular}" ></Setter>
+        <Setter Property="Foreground" Value="{StaticResource SpaceCadet}" ></Setter>
+    </Style>
+</ResourceDictionary>

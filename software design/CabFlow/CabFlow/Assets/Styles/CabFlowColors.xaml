@@ -1,0 +1,67 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <SolidColorBrush x:Key="WhiteSmoke">
+        <SolidColorBrush.Color>
+            #f5f3f5
+        </SolidColorBrush.Color>
+    </SolidColorBrush>
+    <SolidColorBrush x:Key="Jet">
+        <SolidColorBrush.Color>
+            #302B27
+        </SolidColorBrush.Color>
+    </SolidColorBrush>
+    <SolidColorBrush x:Key="Periwinkle">
+        <SolidColorBrush.Color>
+            #AFBBF2
+        </SolidColorBrush.Color>
+    </SolidColorBrush>
+    <SolidColorBrush x:Key="MarianBlue">
+        <SolidColorBrush.Color>
+            #274690
+        </SolidColorBrush.Color>
+    </SolidColorBrush>
+    <SolidColorBrush x:Key="SpaceCadet">
+        <SolidColorBrush.Color>
+            #1B264F
+        </SolidColorBrush.Color>
+    </SolidColorBrush>
+
+    <SolidColorBrush x:Key="TextColor">
+        <SolidColorBrush.Color>
+            #ff302B27
+        </SolidColorBrush.Color>
+    </SolidColorBrush>
+
+    <SolidColorBrush x:Key="MainBackgroundColor">
+        <SolidColorBrush.Color>
+            #f5f3f5
+        </SolidColorBrush.Color>
+    </SolidColorBrush>
+
+    <SolidColorBrush x:Key="DarkerBackgroundColor">
+        <SolidColorBrush.Color>
+            #f5f3f5
+        </SolidColorBrush.Color>
+    </SolidColorBrush>
+
+    <SolidColorBrush x:Key="HeaderColor">
+        <SolidColorBrush.Color>
+            #1B264F
+        </SolidColorBrush.Color>
+    </SolidColorBrush>
+
+
+    <SolidColorBrush x:Key="MainCellColor">
+        <SolidColorBrush.Color>
+            #f5f3f5
+        </SolidColorBrush.Color>
+    </SolidColorBrush>
+
+    <SolidColorBrush x:Key="AlternatingCellColor">
+        <SolidColorBrush.Color>
+            #AFBBF2
+        </SolidColorBrush.Color>
+    </SolidColorBrush>
+</ResourceDictionary>

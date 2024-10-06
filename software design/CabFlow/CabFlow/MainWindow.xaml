@@ -1,0 +1,24 @@
+﻿<Window x:Class="CabFlow.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CabFlow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="1080" Width="1920">
+    <Grid Background="{StaticResource Periwinkle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="CabFlow" 
+                   TextAlignment="Center" 
+                   FontSize="60" 
+                   FontFamily="{StaticResource NunitoBold}"
+                   VerticalAlignment="Bottom"
+                   Padding="0, 30, 0, 0"/>
+        <TabControl Grid.Row="1" 
+                    x:Name="TabControl" ItemsSource="{Binding Tabs}"></TabControl>
+    </Grid>
+</Window>
