@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Bogus;
 using TaxiDbFirst.Model.TaxiDbContext;
 
@@ -121,12 +122,13 @@ namespace TaxiDbFirst
             }
         }
 
+        public ICommand RandomDataCommand { get; set; }
+
         private readonly TaxiContext _context;
 
         public MainWindowViewModel()
         {
             _context = new TaxiContext();
-            AddRandomData();
             _categories = new ObservableCollection<Category>(_context.Categories);
             _customers = new ObservableCollection<Customer>(_context.Customers);
             _drivers = new ObservableCollection<Driver>(_context.Drivers);
@@ -136,6 +138,7 @@ namespace TaxiDbFirst
             _trips = new ObservableCollection<Trip>(_context.Trips);
             _tripStatuses = new ObservableCollection<TripStatus>(_context.TripStatuses);
             _vehicles = new ObservableCollection<Vehicle>(_context.Vehicles);
+            RandomDataCommand = new RelayCommand(_ => AddRandomData());
         }
 
         private void AddRandomData()
@@ -211,7 +214,7 @@ namespace TaxiDbFirst
             }
             _context.SaveChanges();
 
-            for (var i = 0; i < 300; i++)
+            for (var i = 0; i < 1000; i++)
             {
                 var vehicle = _context.Vehicles.Select(x => x.Id).ElementAt(faker.Random.Int(0, _context.Vehicles.Count() - 1));
                 var driver = _context.Drivers.Select(x => x.Id).ElementAt(faker.Random.Int(0, _context.Drivers.Count() - 1));

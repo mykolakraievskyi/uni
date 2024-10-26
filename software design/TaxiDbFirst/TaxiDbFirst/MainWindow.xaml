@@ -7,42 +7,45 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="1080" Width="1920">
     <Grid>
-        <TabControl>
-            <TabItem Header="Categories">
-                <DataGrid ItemsSource="{Binding Categories}" AutoGenerateColumns="True" />
-            </TabItem>
+        <StackPanel>
+            <Button Content="Add Random Data"  Command="{Binding RandomDataCommand}"/>
+            <TabControl>
+                <TabItem Header="Categories">
+                    <DataGrid ItemsSource="{Binding Categories}" AutoGenerateColumns="True" />
+                </TabItem>
 
-            <TabItem Header="Customers">
-                <DataGrid ItemsSource="{Binding Customers}" AutoGenerateColumns="True" />
-            </TabItem>
+                <TabItem Header="Customers">
+                    <DataGrid ItemsSource="{Binding Customers}" AutoGenerateColumns="True" />
+                </TabItem>
 
-            <TabItem Header="Drivers">
-                <DataGrid ItemsSource="{Binding Drivers}" AutoGenerateColumns="True" />
-            </TabItem>
+                <TabItem Header="Drivers">
+                    <DataGrid ItemsSource="{Binding Drivers}" AutoGenerateColumns="True" />
+                </TabItem>
 
-            <TabItem Header="DriverQualifications">
-                <DataGrid ItemsSource="{Binding DriverQualifications}" AutoGenerateColumns="True" />
-            </TabItem>
+                <TabItem Header="DriverQualifications">
+                    <DataGrid ItemsSource="{Binding DriverQualifications}" AutoGenerateColumns="True" />
+                </TabItem>
 
-            <TabItem Header="NewDrivers">
-                <DataGrid ItemsSource="{Binding NewDrivers}" AutoGenerateColumns="True" />
-            </TabItem>
+                <TabItem Header="NewDrivers">
+                    <DataGrid ItemsSource="{Binding NewDrivers}" AutoGenerateColumns="True" />
+                </TabItem>
 
-            <TabItem Header="Points">
-                <DataGrid ItemsSource="{Binding Points}" AutoGenerateColumns="True" />
-            </TabItem>
+                <TabItem Header="Points">
+                    <DataGrid ItemsSource="{Binding Points}" AutoGenerateColumns="True" />
+                </TabItem>
 
-            <TabItem Header="Trips">
-                <DataGrid ItemsSource="{Binding Trips}" AutoGenerateColumns="True" />
-            </TabItem>
+                <TabItem Header="Trips">
+                    <DataGrid ItemsSource="{Binding Trips}" AutoGenerateColumns="True" />
+                </TabItem>
 
-            <TabItem Header="TripStatuses">
-                <DataGrid ItemsSource="{Binding TripStatuses}" AutoGenerateColumns="True" />
-            </TabItem>
+                <TabItem Header="TripStatuses">
+                    <DataGrid ItemsSource="{Binding TripStatuses}" AutoGenerateColumns="True" />
+                </TabItem>
 
-            <TabItem Header="Vehicles">
-                <DataGrid ItemsSource="{Binding Vehicles}" AutoGenerateColumns="True" />
-            </TabItem>
-        </TabControl>
+                <TabItem Header="Vehicles">
+                    <DataGrid ItemsSource="{Binding Vehicles}" AutoGenerateColumns="True" />
+                </TabItem>
+            </TabControl>
+        </StackPanel>
     </Grid>
 </Window>
