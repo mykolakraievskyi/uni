@@ -3,7 +3,6 @@ import { RouterOutlet } from '@angular/router';
 import { StatisticsTabComponent } from './components/statistics-tab/statistics-tab.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { HeaderComponent } from './components/header/header.component';
-import { IntervalStatisticalSeriesTabComponent } from './components/interval-statistical-series-tab/interval-statistical-series-tab.component';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +12,6 @@ import { IntervalStatisticalSeriesTabComponent } from './components/interval-sta
     StatisticsTabComponent,
     MatTabsModule,
     HeaderComponent,
-    IntervalStatisticalSeriesTabComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

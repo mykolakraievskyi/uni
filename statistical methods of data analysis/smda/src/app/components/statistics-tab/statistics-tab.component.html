@@ -1,34 +1,34 @@
 <div class="container">
   <div class="data">
     <div>
-      <strong>Дані: </strong>
+      <strong>Data: </strong>
       <input type="text" [(ngModel)]="inputDataString" />
     </div>
-    <div><strong>Середнє:</strong> {{ average | number : "1.2-4" }}</div>
-    <div><strong>Мода:</strong> {{ mode }}</div>
-    <div><strong>Медіана:</strong> {{ median | number : "1.2-4" }}</div>
-    <div><strong>Розмах:</strong> {{ range | number : "1.2-4" }}</div>
-    <div><strong>Дисперсія:</strong> {{ dispersion | number : "1.2-4" }}</div>
-    <div><strong>Відхилення:</strong> {{ std | number : "1.2-4" }}</div>
+    <div><strong>Average:</strong> {{ average }}</div>
+    <div><strong>Mode:</strong> {{ mode }}</div>
+    <div><strong>Median:</strong> {{ median }}</div>
+    <div><strong>Range:</strong> {{ range }}</div>
     <div>
-      <strong>Виправлена дисперсія:</strong>
-      {{ correctedDispersion | number : "1.2-4" }}
+      <strong>Standard Dispersion:</strong> {{ dispersion.toPrecision(8) }}
+    </div>
+    <div><strong>Standard Deviation:</strong> {{ std.toPrecision(8) }}</div>
+    <div>
+      <strong>Corrected Dispersion:</strong>
+      {{ correctedDispersion.toPrecision(8) }}
     </div>
     <div>
-      <strong>Виправлене відхилення:</strong>
-      {{ correctedSTD | number : "1.2-4" }}
+      <strong>Standard Deviation:</strong>
+      {{ correctedSTD.toPrecision(8) }}
     </div>
-    <div><strong>Варіація:</strong> {{ variation | number : "1.2-4" }}</div>
+    <div><strong>Variation:</strong> {{ variation.toPrecision(8) }}</div>
     <div>
-      <strong>Початковий момент другого порядку:</strong>
-      {{ pm | number : "1.2-4" }}
+      <strong>Second-order initial moment:</strong> {{ pm.toPrecision(8) }}
     </div>
     <div>
-      <strong>Центральний момент другого порядку:</strong>
-      {{ cm | number : "1.2-4" }}
+      <strong>Second-order central moment:</strong> {{ cm.toPrecision(8) }}
     </div>
-    <div><strong>Асиметрія:</strong> {{ asymmetry | number : "1.2-4" }}</div>
-    <div><strong>Надлишок:</strong> {{ excess | number : "1.2-4" }}</div>
+    <div><strong>Asymmetry:</strong> {{ asymmetry.toPrecision(8) }}</div>
+    <div><strong>Excess:</strong> {{ excess.toPrecision(8) }}</div>
   </div>
 
   <div class="charts">
@@ -41,24 +41,17 @@
       [type]="'line'"
     >
     </canvas>
-
     <div class="button-container">
-      <button (click)="showPolygon()">Полігон за частотами</button>
-      <button (click)="showKumulCurve()">
-        Кумулятивна крива за накопиченими частотами
-      </button>
-      <button (click)="showPoligonRel()">
-        Полігон за відносними частотами
-      </button>
-      <button (click)="showKumulCurveRel()">
-        Кумулятивна крива за відносними частотами
-      </button>
-      <button (click)="showEmpiricalFunc()">Емпірична функція розподілу</button>
-      <!-- <label>Відносний графік</label> -->
+      <button (click)="showPolygon()">Polygon Chart</button>
+      <button (click)="showKumulCurve()">Kumul Curve</button>
+      <button (click)="showPoligonRel()">Relative Frequency Polygon</button>
+      <button (click)="showKumulCurveRel()">Kumul Curve Rel</button>
+      <button (click)="showEmpiricalFunc()">Empirical Function</button>
+      <!-- <label>Relative chart</label> -->
     </div>
     <div class="relative">
       <mat-slide-toggle [(ngModel)]="isRelative" (change)="onValueChanged()"
-        >Відносний графік</mat-slide-toggle
+        >Relative chart</mat-slide-toggle
       >
     </div>
   </div>

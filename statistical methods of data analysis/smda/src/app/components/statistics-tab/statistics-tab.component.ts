@@ -14,7 +14,6 @@ import {
   CategoryScale,
 } from 'chart.js';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 
 Chart.register(
   LineController,
@@ -32,12 +31,7 @@ Chart.register(
   templateUrl: './statistics-tab.component.html',
   styleUrls: ['./statistics-tab.component.css'],
   standalone: true,
-  imports: [
-    BaseChartDirective,
-    FormsModule,
-    MatSlideToggleModule,
-    CommonModule,
-  ],
+  imports: [BaseChartDirective, FormsModule, MatSlideToggleModule],
 })
 export class StatisticsTabComponent implements OnInit {
   data: number[] = [0.29, 0.35, 0.34, 0.42, 0.47, 0.6, 0.91];
