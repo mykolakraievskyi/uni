@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="data">
+    <div>
+      <strong>Data: </strong>
+      <input type="text" [(ngModel)]="inputDataString" />
+    </div>
+    <div><strong>Average:</strong> {{ average }}</div>
+    <div><strong>Mode:</strong> {{ mode }}</div>
+    <div><strong>Median:</strong> {{ median }}</div>
+    <div><strong>Range:</strong> {{ range }}</div>
+    <div>
+      <strong>Standard Dispersion:</strong> {{ dispersion.toPrecision(8) }}
+    </div>
+    <div><strong>Standard Deviation:</strong> {{ std.toPrecision(8) }}</div>
+    <div>
+      <strong>Corrected Dispersion:</strong>
+      {{ correctedDispersion.toPrecision(8) }}
+    </div>
+    <div>
+      <strong>Standard Deviation:</strong>
+      {{ correctedSTD.toPrecision(8) }}
+    </div>
+    <div><strong>Variation:</strong> {{ variation.toPrecision(8) }}</div>
+    <div>
+      <strong>Second-order initial moment:</strong> {{ pm.toPrecision(8) }}
+    </div>
+    <div>
+      <strong>Second-order central moment:</strong> {{ cm.toPrecision(8) }}
+    </div>
+    <div><strong>Asymmetry:</strong> {{ asymmetry.toPrecision(8) }}</div>
+    <div><strong>Excess:</strong> {{ excess.toPrecision(8) }}</div>
+  </div>
+
+  <div class="charts">
+    <canvas
+      baseChart
+      [datasets]="chartData.datasets"
+      [labels]="chartData.labels"
+      [options]="chartOptions"
+      [legend]="true"
+      [type]="'line'"
+    >
+    </canvas>
+    <div class="button-container">
+      <button (click)="showPolygon()">Polygon Chart</button>
+      <button (click)="showKumulCurve()">Kumul Curve</button>
+      <button (click)="showPoligonRel()">Relative Frequency Polygon</button>
+      <button (click)="showKumulCurveRel()">Kumul Curve Rel</button>
+      <button (click)="showEmpiricalFunc()">Empirical Function</button>
+      <!-- <label>Relative chart</label> -->
+    </div>
+    <div class="relative">
+      <mat-slide-toggle [(ngModel)]="isRelative" (change)="onValueChanged()"
+        >Relative chart</mat-slide-toggle
+      >
+    </div>
+  </div>
+</div>
