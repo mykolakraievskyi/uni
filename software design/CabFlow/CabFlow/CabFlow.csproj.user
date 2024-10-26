@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="View\Drivers\DriverListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Orders\OrderListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Vehicles\VehicleListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Assets\Styles\CabFlowColors.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Assets\Styles\CabFlowFont.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Assets\Styles\CabFlowDataGrid.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Assets\Styles\CabFlowTabs.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Drivers\DriverListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Orders\OrderListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Vehicles\VehicleListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

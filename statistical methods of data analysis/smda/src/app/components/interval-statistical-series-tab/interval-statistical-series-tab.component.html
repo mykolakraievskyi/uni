@@ -1,0 +1,125 @@
+<div class="container">
+  <div class="data">
+    <table>
+      <tr>
+        <th>Назва</th>
+        <th>Значення</th>
+      </tr>
+      <tr>
+        <td>Середнє</td>
+        <td>{{ average | number : "1.2-4" }}</td>
+      </tr>
+      <tr>
+        <td>Мода</td>
+        <td>{{ mode ? mode.join(", ") : "-" }}</td>
+      </tr>
+      <tr>
+        <td>Мода (дискретний ряд)</td>
+        <td>{{ exactMode ? exactMode.join(", ") : "-" }}</td>
+      </tr>
+      <tr>
+        <td>Модальний інтервал</td>
+        <td>{{ modalInterval.join(", ") }}</td>
+      </tr>
+      <tr>
+        <td>Медіана</td>
+        <td>{{ median | number : "1.2-4" }}</td>
+      </tr>
+      <tr>
+        <td>Медіана (дискретний ряд)</td>
+        <td>{{ exactMedian | number : "1.2-4" }}</td>
+      </tr>
+      <tr>
+        <td>Медіана за іншим співвідношенням</td>
+        <td>{{ median2 | number : "1.2-4" }}</td>
+      </tr>
+      <tr>
+        <td>Медіанний інтервал</td>
+        <td>{{ medianInterval.join(", ") }}</td>
+      </tr>
+      <tr>
+        <td>Дисперсія</td>
+        <td>{{ dispersion | number : "1.2-4" }}</td>
+      </tr>
+      <tr>
+        <td>Виправлена дисперсія</td>
+        <td>{{ adjustedDispersion | number : "1.2-4" }}</td>
+      </tr>
+      <tr>
+        <td>Відхилення</td>
+        <td>{{ deviation | number : "1.2-4" }}</td>
+      </tr>
+      <tr>
+        <td>Виправлене квадратичне відхилення</td>
+        <td>{{ adjustedSquareDeviation | number : "1.2-4" }}</td>
+      </tr>
+      <tr>
+        <td>Варіація</td>
+        <td>{{ variation | number : "1.2-4" }}</td>
+      </tr>
+      <tr>
+        <td>Розмах</td>
+        <td>{{ range | number : "1.2-4" }}</td>
+      </tr>
+      <tr>
+        <td>Початковий момент другого порядку</td>
+        <td>{{ secondOrderInitialMoment | number : "1.2-4" }}</td>
+      </tr>
+      <tr>
+        <td>Центральний момент другого порядку</td>
+        <td>{{ secondOrderCentralMoment | number : "1.2-4" }}</td>
+      </tr>
+      <tr>
+        <td>Ексцес</td>
+        <td>{{ kurtosis | number : "1.2-4" }}</td>
+      </tr>
+      <tr>
+        <td>Асиметрія</td>
+        <td>{{ skewness | number : "1.2-4" }}</td>
+      </tr>
+    </table>
+    <div class="table">
+      <table>
+        <tr>
+          <th>Інтервали</th>
+          <th>Кількість</th>
+          <th>Ймовірність</th>
+        </tr>
+        <tr *ngFor="let s of series">
+          <td>{{ s.range_str }}</td>
+          <td>{{ s.count }}</td>
+          <td>{{ s.probability | number : "1.2-4" }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="charts">
+    <canvas
+      baseChart
+      [datasets]="chartData.datasets"
+      [labels]="chartData.labels"
+      [options]="chartOptions"
+      [legend]="true"
+      [type]="chartType"
+    >
+    </canvas>
+    <div class="button-container">
+      <button (click)="switchChart(1)">Гістограма за частотами</button>
+      <button (click)="switchChart(2)">
+        Гістограма за відносними частотами
+      </button>
+      <button (click)="switchChart(3)">
+        Кумулятивна крива за накопиченими частотами
+      </button>
+      <button (click)="switchChart(4)">
+        Кумулятивна крива за накопиченими відносними частотами
+      </button>
+      <button (click)="switchChart(5)">Емпірична функція розподілу</button>
+    </div>
+    <div class="relative">
+      <mat-slide-toggle [(ngModel)]="isRelative" (change)="onValueChanged()"
+        >Відносний графік</mat-slide-toggle
+      >
+    </div>
+  </div>
+</div>
