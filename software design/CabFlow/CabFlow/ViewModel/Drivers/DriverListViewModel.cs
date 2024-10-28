@@ -28,11 +28,22 @@ namespace CabFlow.ViewModel.Drivers
             }
         }
 
-        public ICommand OpenDriverCommand;
+        private Driver _selectedDriver;
+        public Driver SelectedDriver
+        {
+            get => _selectedDriver;
+            set
+            {
+                _selectedDriver = value;
+                OnPropertyChanged();
+            }
+        }
+        public ICommand OpenDriverCommand { get; set; }
         public DriverListViewModel(DriverService driverService, TabService tabService)
         {
             _driverService = driverService;
             _tabService = tabService;
+            OpenDriverCommand = new RelayCommand(execute: x => OpenDriver((Driver)x), canExecute: _ => true);
 
             Drivers = [new Driver()
             {
@@ -91,9 +102,10 @@ namespace CabFlow.ViewModel.Drivers
             Drivers = new ObservableCollection<Driver>(await _driverService.GetDriversAsync());
         }
 
-        private void OpenDriver(Driver driver)
+        private void OpenDriver(Driver driver = null)
         {
-            _tabService.AddTab(driver.Fullname, (new DriverViewModel(driver)));
+            var header = driver == null ? "New Driver" : driver.Fullname;
+            _tabService.AddTab(header, (new DriverViewModel(driver)));
         }
 
     }
