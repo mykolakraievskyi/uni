@@ -31,16 +31,23 @@ namespace CabFlow
                 // ViewModels
                 services.AddTransient<MainViewModel>();
                 services.AddSingleton<DriverListViewModel>();
+                services.AddSingleton<DriverViewModel>();
                 services.AddSingleton<OrderListViewModel>();
+                services.AddSingleton<OrderViewModel>();
                 services.AddSingleton<VehicleListViewModel>();
+                services.AddSingleton<VehicleViewModel>();
 
                 // Views
                 services.AddSingleton<MainWindow>();
                 services.AddSingleton<DriverListView>();
+                services.AddSingleton<DriverView>();
                 services.AddSingleton<OrderListView>();
+                services.AddSingleton<OrderView>();
                 services.AddSingleton<VehicleListView>();
+                services.AddSingleton<VehicleView>();
 
                 // Services
+                services.AddSingleton<TabService>();
                 services.AddSingleton<DriverService>();
                 services.AddSingleton<VehicleService>();
                 services.AddSingleton<OrderService>();

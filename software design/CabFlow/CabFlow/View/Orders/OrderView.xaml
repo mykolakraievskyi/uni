@@ -1,0 +1,34 @@
+﻿<Page x:Class="CabFlow.View.Orders.OrderView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CabFlow.View.Orders"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="OrderView">
+
+    <Grid>
+        <StackPanel>
+            <Label Content="Number" />
+            <TextBox Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}"
+                     IsReadOnly="{Binding IsEditable}" />
+
+            <Label Content="Vehicle" />
+            <TextBox Text="{Binding Vehicle, UpdateSourceTrigger=PropertyChanged}"
+                     IsReadOnly="{Binding IsEditable}" />
+
+            <Label Content="Driver" />
+            <TextBox Text="{Binding Driver, UpdateSourceTrigger=PropertyChanged}"
+                     IsReadOnly="{Binding IsEditable}" />
+
+            <Label Content="Order Status" />
+            <TextBox Text="{Binding OrderStatus, UpdateSourceTrigger=PropertyChanged}"
+                     IsReadOnly="{Binding IsEditable}" />
+
+            <Label Content="Pick Up Time" />
+            <DatePicker SelectedDate="{Binding PickUpTime, UpdateSourceTrigger=PropertyChanged}"
+                        IsEnabled="{Binding IsEditable}" />
+        </StackPanel>
+    </Grid>
+</Page>

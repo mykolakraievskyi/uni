@@ -15,10 +15,8 @@ namespace CabFlow.Model
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public int Number { get; set; }
-        [NotMapped]
         public string Fullname => $"{Firstname} {Lastname}";
         public DateTime DateOfBirth { get; set; }
-        [MaxLength(12)]
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public float Rating { get; set; }

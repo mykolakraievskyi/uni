@@ -21,15 +21,28 @@
             <DataTemplate DataType="{x:Type TypeName=viewModel:MainViewModel}">
                 <local:MainWindow />
             </DataTemplate>
+
             <DataTemplate DataType="{x:Type TypeName=driverViewModel:DriverListViewModel}">
                 <driverView:DriverListView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type TypeName=driverViewModel:DriverViewModel}">
+                <driverView:DriverView />
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type TypeName=vehicleViewModel:VehicleListViewModel}">
                 <vehicleView:VehicleListView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type TypeName=vehicleViewModel:VehicleViewModel}">
+                <vehicleView:VehicleView />
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type TypeName=orderViewModel:OrderListViewModel}">
                 <orderView:OrderListView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type TypeName=orderViewModel:OrderViewModel}">
+                <orderView:OrderView />
+            </DataTemplate>
+
             <FontFamily x:Key="NunitoRegular">./Assets/Fonts/Nunito/static/Nunito-Regular.ttf#Nunito</FontFamily>
             <FontFamily x:Key="NunitoItalic">./Assets/Fonts/Nunito/static/Nunito-Italic.ttf#Nunito</FontFamily>
             <FontFamily x:Key="NunitoBold">./Assets/Fonts/Nunito/static/Nunito-Bold.ttf#Nunito</FontFamily>
