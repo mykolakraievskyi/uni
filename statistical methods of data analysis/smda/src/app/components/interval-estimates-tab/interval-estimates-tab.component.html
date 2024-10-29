@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="data">
+    <label for="alphaSelect">Оберіть Alpha:</label>
+    <select
+      id="alphaSelect"
+      [(ngModel)]="selectedAlpha"
+      class="form-control"
+      (change)="calculateResults()"
+    >
+      <option *ngFor="let alpha of alphaValues" [value]="alpha">
+        {{ alpha }}
+      </option>
+    </select>
+    <p>Середнє статистичне: {{ mean | number : "1.2-4" }}</p>
+    <p>Дисперсія: {{ variance | number : "1.2-4" }}</p>
+    <p>Середнє квадратичне відхилення: {{ std | number : "1.2-4" }}</p>
+    <p>
+      Інтервальна оцінка для математичного сподівання при відомій дисперсії:
+      {{ intervalDV[0] | number : "1.2-4" }} <= m <= ${{
+        intervalDV[1] | number : "1.2-4"
+      }}
+    </p>
+    <p>
+      Інтервальна оцінка для математичного сподівання при невідомій дисперсії:
+      {{ intervalDN[0] | number : "1.2-4" }} <= m <= ${{
+        intervalDN[1] | number : "1.2-4"
+      }}
+    </p>
+    <p>
+      Інтервальна оцінка середнього квадратичного відхилення:
+      {{ intervalStd[0] | number : "1.2-4" }} <= m <= ${{
+        intervalStd[1] | number : "1.2-4"
+      }}
+    </p>
+    <p>Значення аргументів функції Лапласа: {{ stringify(lap) }}</p>
+    <p>Значення аргументів функції Стюдента: {{ stringify(stu) }}</p>
+    <p>Значення аргументів функції Пірсона: {{ stringify(q) }}</p>
+  </div>
+</div>

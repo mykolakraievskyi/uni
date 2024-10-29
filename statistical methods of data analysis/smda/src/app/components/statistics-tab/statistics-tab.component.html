@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="data">
+    <div>
+      <strong>Дані: </strong>
+      <input type="text" [(ngModel)]="inputDataString" />
+    </div>
+    <div><strong>Середнє:</strong> {{ average | number : "1.2-4" }}</div>
+    <div><strong>Мода:</strong> {{ mode }}</div>
+    <div><strong>Медіана:</strong> {{ median | number : "1.2-4" }}</div>
+    <div><strong>Розмах:</strong> {{ range | number : "1.2-4" }}</div>
+    <div><strong>Дисперсія:</strong> {{ dispersion | number : "1.2-4" }}</div>
+    <div><strong>Відхилення:</strong> {{ std | number : "1.2-4" }}</div>
+    <div>
+      <strong>Виправлена дисперсія:</strong>
+      {{ correctedDispersion | number : "1.2-4" }}
+    </div>
+    <div>
+      <strong>Виправлене відхилення:</strong>
+      {{ correctedSTD | number : "1.2-4" }}
+    </div>
+    <div><strong>Варіація:</strong> {{ variation | number : "1.2-4" }}</div>
+    <div>
+      <strong>Початковий момент другого порядку:</strong>
+      {{ pm | number : "1.2-4" }}
+    </div>
+    <div>
+      <strong>Центральний момент другого порядку:</strong>
+      {{ cm | number : "1.2-4" }}
+    </div>
+    <div><strong>Асиметрія:</strong> {{ asymmetry | number : "1.2-4" }}</div>
+    <div><strong>Надлишок:</strong> {{ excess | number : "1.2-4" }}</div>
+  </div>
+
+  <div class="charts">
+    <canvas
+      baseChart
+      [datasets]="chartData.datasets"
+      [labels]="chartData.labels"
+      [options]="chartOptions"
+      [legend]="true"
+      [type]="'line'"
+    >
+    </canvas>
+
+    <div class="button-container">
+      <button (click)="showPolygon()">Полігон за частотами</button>
+      <button (click)="showKumulCurve()">
+        Кумулятивна крива за накопиченими частотами
+      </button>
+      <button (click)="showPoligonRel()">
+        Полігон за відносними частотами
+      </button>
+      <button (click)="showKumulCurveRel()">
+        Кумулятивна крива за відносними частотами
+      </button>
+      <button (click)="showEmpiricalFunc()">Емпірична функція розподілу</button>
+      <!-- <label>Відносний графік</label> -->
+    </div>
+    <div class="relative">
+      <mat-slide-toggle [(ngModel)]="isRelative" (change)="onValueChanged()"
+        >Відносний графік</mat-slide-toggle
+      >
+    </div>
+  </div>
+</div>
