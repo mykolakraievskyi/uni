@@ -4,6 +4,7 @@ import { StatisticsTabComponent } from './components/statistics-tab/statistics-t
 import { MatTabsModule } from '@angular/material/tabs';
 import { HeaderComponent } from './components/header/header.component';
 import { IntervalStatisticalSeriesTabComponent } from './components/interval-statistical-series-tab/interval-statistical-series-tab.component';
+import { IntervalEstimatesTabComponent } from './components/interval-estimates-tab/interval-estimates-tab.component';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ import { IntervalStatisticalSeriesTabComponent } from './components/interval-sta
     MatTabsModule,
     HeaderComponent,
     IntervalStatisticalSeriesTabComponent,
+    IntervalEstimatesTabComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
