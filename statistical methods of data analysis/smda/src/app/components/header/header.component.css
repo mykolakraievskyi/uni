@@ -1,0 +1,12 @@
+header {
+  text-align: center;
+  font-size: xx-large;
+}
+
+.container {
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: aliceblue;
+}

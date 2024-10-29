@@ -1,0 +1,10 @@
+.container {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  background-color: #6699ff;
+  color: white;
+}
