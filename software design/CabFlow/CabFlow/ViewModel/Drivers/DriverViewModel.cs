@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using CabFlow.Core;
 using CabFlow.Model;
 using CabFlow.Services;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CabFlow.ViewModel.Drivers
 {
@@ -15,16 +16,22 @@ namespace CabFlow.ViewModel.Drivers
     {
         public DriverViewModel(Driver driver)
         {
-            Firstname = driver.Firstname;
-            Lastname = driver.Lastname;
-            Number = driver.Number;
-            DateOfBirth = driver.DateOfBirth;
-            PhoneNumber = driver.PhoneNumber;
-            Email = driver.Email;
-            Rating = driver.Rating;
-            StartedWorkingOn = driver.StartedWorkingOn;
-            Categories = string.Join(", ", driver.Categories.Select(c => c.Name));
+            if (driver is not null)
+            {
+                Firstname = driver.Firstname;
+                Lastname = driver.Lastname;
+                Number = driver.Number;
+                DateOfBirth = driver.DateOfBirth;
+                PhoneNumber = driver.PhoneNumber;
+                Email = driver.Email;
+                Rating = driver.Rating;
+                StartedWorkingOn = driver.StartedWorkingOn;
+                Categories = !driver.Categories.IsNullOrEmpty() ? string.Join(", ", driver.Categories.Select(c => c.Name)) : "B";
+            }
+
+            ChangeEditCommand = new RelayCommand(execute: x => IsEditing = !IsEditing, canExecute: x => true);
         }
+           
 
         private string _firstname;
         private string _lastname;
@@ -89,5 +96,7 @@ namespace CabFlow.ViewModel.Drivers
             get => _categories;
             set { _categories = value; OnPropertyChanged(); }
         }
+
+        public RelayCommand ChangeEditCommand { get; set; }
     }
 }

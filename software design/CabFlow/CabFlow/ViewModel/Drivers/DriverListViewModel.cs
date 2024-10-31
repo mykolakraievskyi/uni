@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using CabFlow.Core;
 using CabFlow.Model;
@@ -29,6 +30,8 @@ namespace CabFlow.ViewModel.Drivers
         }
 
         private Driver _selectedDriver;
+        private RelayCommand _openDriverCommand;
+
         public Driver SelectedDriver
         {
             get => _selectedDriver;
@@ -38,12 +41,23 @@ namespace CabFlow.ViewModel.Drivers
                 OnPropertyChanged();
             }
         }
-        public ICommand OpenDriverCommand { get; set; }
+
+        public RelayCommand OpenDriverCommand
+        {
+            get => _openDriverCommand;
+            set
+            {
+                _openDriverCommand = value;
+                OnPropertyChanged();
+            }
+        }
+
         public DriverListViewModel(DriverService driverService, TabService tabService)
         {
+            OpenDriverCommand = new RelayCommand(execute: x => OpenDriver(), canExecute: x => true);
+
             _driverService = driverService;
             _tabService = tabService;
-            OpenDriverCommand = new RelayCommand(execute: x => OpenDriver((Driver)x), canExecute: _ => true);
 
             Drivers = [new Driver()
             {
@@ -94,6 +108,8 @@ namespace CabFlow.ViewModel.Drivers
                 PhoneNumber = "0970080376",
                 Rating = 5.0f
             }];
+
+            //
             //InitAsync();
         }
 
@@ -102,11 +118,16 @@ namespace CabFlow.ViewModel.Drivers
             Drivers = new ObservableCollection<Driver>(await _driverService.GetDriversAsync());
         }
 
-        private void OpenDriver(Driver driver = null)
+        public void OpenDriver(Driver driver = null)
         {
             var header = driver == null ? "New Driver" : driver.Fullname;
             _tabService.AddTab(header, (new DriverViewModel(driver)));
         }
 
+        public void OpenDriver()
+        {
+            OpenDriver(SelectedDriver);
+            SelectedDriver = null;
+        }
     }
 }

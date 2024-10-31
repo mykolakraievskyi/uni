@@ -22,7 +22,7 @@ public class RelayCommand(Action<object> execute, Func<object, bool> canExecute 
     }
     public void Execute(object? parameter)
     {
-        if (parameter != null) execute(parameter);
+        execute(parameter);
     }
 
 }
