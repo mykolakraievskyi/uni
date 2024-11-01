@@ -31,5 +31,10 @@ namespace CabFlow.ViewModel
 
         private TabService _tabService;
         public ObservableCollection<TabItem> Tabs { get; init; }
+        public TabItem SelectedTab
+        {
+            get => _tabService.SelectedTab;
+            set => _tabService.SelectedTab = value;
+        }
     }
 }

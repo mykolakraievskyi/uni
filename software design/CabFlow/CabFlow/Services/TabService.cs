@@ -14,8 +14,14 @@ namespace CabFlow.Services
 {
     public class TabService : ObservableObject
     {
+        public TabItem SelectedTab
+        {
+            get => _selectedTab;
+            set { _selectedTab = value; OnPropertyChanged(); }
+        }
         public ObservableCollection<TabItem> Tabs => _tabs;
 
+        private TabItem _selectedTab;
         private readonly ObservableCollection<TabItem> _tabs = new();
 
         public void AddTab(string header, Core.ViewModel content)
@@ -28,6 +34,15 @@ namespace CabFlow.Services
                    Content = content
                }
             });
+        }
+
+        public void OpenTab(string header)
+        {
+            var tab = _tabs.FirstOrDefault(t => t.Header.ToString() == header);
+            if (tab != null)
+            {
+                SelectedTab = tab;
+            }
         }
 
         public void RemoveTab(string header) {

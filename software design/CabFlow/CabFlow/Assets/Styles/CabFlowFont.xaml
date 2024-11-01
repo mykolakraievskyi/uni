@@ -4,4 +4,9 @@
         <Setter Property="FontFamily" Value="{StaticResource NunitoRegular}" ></Setter>
         <Setter Property="Foreground" Value="{StaticResource SpaceCadet}" ></Setter>
     </Style>
+
+    <Style TargetType="Label">
+        <Setter Property="FontFamily" Value="{StaticResource NunitoRegular}" ></Setter>
+        <Setter Property="Foreground" Value="{StaticResource SpaceCadet}" ></Setter>
+    </Style>
 </ResourceDictionary>

@@ -16,6 +16,8 @@
                 <ResourceDictionary Source="Assets/Styles/CabFlowDataGrid.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Assets/Styles/CabFlowTabs.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Assets/Styles/CabFlowFont.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Assets/Styles/CabFlowButton.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Assets/Styles/CabFlowInput.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type TypeName=viewModel:MainViewModel}">

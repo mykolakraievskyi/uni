@@ -12,46 +12,56 @@
 
     <Page.Resources>
         <core:EditModeToButtonContentConverter x:Key="EditModeToButtonContentConverter" />
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Page.Resources>
     <Grid>
-        <StackPanel>
-            <Label Content="Firstname" />
-            <TextBox Text="{Binding Firstname, UpdateSourceTrigger=PropertyChanged}"
-                     IsReadOnly="{Binding !IsEditing}" />
+        <ScrollViewer>
+            <StackPanel>
+                <Label Content="Firstname" />
+                <TextBox Text="{Binding Firstname, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding IsEditing}" />
 
-            <Label Content="Lastname" />
-            <TextBox Text="{Binding Lastname, UpdateSourceTrigger=PropertyChanged}"
-                     IsReadOnly="{Binding !IsEditing}" />
+                <Label Content="Lastname" />
+                <TextBox Text="{Binding Lastname, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding IsEditing}"/>
 
-            <Label Content="Number" />
-            <TextBox Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}"
-                     IsReadOnly="{Binding !IsEditing}" />
+                <Label Content="Number" />
+                <TextBox Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding IsEditing}"/>
 
-            <Label Content="Date of Birth" />
-            <DatePicker SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}"
-                        IsEnabled="{Binding IsEditing}" />
+                <Label Content="Date of Birth" />
+                <DatePicker SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="{Binding IsEditing}" />
 
-            <Label Content="Phone Number" />
-            <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
-                     IsReadOnly="{Binding !IsEditing}" />
+                <Label Content="Phone Number" />
+                <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding IsEditing}" />
 
-            <Label Content="Email" />
-            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
-                     IsReadOnly="{Binding !IsEditing}" />
+                <Label Content="Email" />
+                <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding IsEditing}"/>
 
-            <Label Content="Rating" />
-            <TextBox Text="{Binding Rating, UpdateSourceTrigger=PropertyChanged}"
-                     IsReadOnly="{Binding !IsEditing}" />
+                <Label Content="Rating" />
+                <TextBox Text="{Binding Rating, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding IsEditing}" />
 
-            <Label Content="Started Working On" />
-            <DatePicker SelectedDate="{Binding StartedWorkingOn, UpdateSourceTrigger=PropertyChanged}"
-                        IsEnabled="{Binding IsEditing}" />
+                <Label Content="Started Working On" />
+                <DatePicker SelectedDate="{Binding StartedWorkingOn, UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="{Binding IsEditing}" />
 
-            <Label Content="Categories" />
-            <TextBox Text="{Binding Categories, UpdateSourceTrigger=PropertyChanged}"
-                     IsReadOnly="{Binding !IsEditing}" />
-            <Button Command="{Binding ChangeEditCommatnt}"
-                    Content="{Binding IsEditing, Converter={StaticResource EditModeToButtonContentConverter}}"></Button>
-        </StackPanel>
+                <Label Content="Categories" />
+                <TextBox Text="{Binding Categories, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding IsEditing}"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button Command="{Binding ChangeEditCommand}"
+                            Content="{Binding IsEditing, Converter={StaticResource EditModeToButtonContentConverter}}"></Button>
+
+                    <Button Visibility="{Binding IsEditing, Converter={StaticResource BoolToVisibilityConverter}}"
+                            Content="Cancel"></Button>
+
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
