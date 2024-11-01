@@ -9,6 +9,10 @@
       Title="VehicleListView">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         <DataGrid ItemsSource="{Binding Vehicles}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Number" Binding="{Binding Number}"></DataGridTextColumn>
@@ -18,5 +22,6 @@
                 <DataGridTextColumn Header="Number Of Seats" Binding="{Binding Seats}" ></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Button Grid.Row="1" Command="{Binding OpenVehicleCommand}" Content="Add"></Button>
     </Grid>
 </Page>

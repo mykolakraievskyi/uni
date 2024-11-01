@@ -22,6 +22,28 @@ namespace CabFlow.Model
         public float Rating { get; set; }
         public DateTime StartedWorkingOn { get; set; }
 
+        #region ctors
+
+        public Driver()
+        {
+            
+        }
+
+        public Driver(Driver driver)
+        {
+            Id = driver.Id;
+            Firstname = new string(driver.Firstname);
+            Lastname = new string(driver.Lastname);
+            Number = driver.Number;
+            DateOfBirth = driver.DateOfBirth;
+            PhoneNumber = new string(driver.PhoneNumber);
+            Email = new string(driver.Email);
+            Rating = driver.Rating;
+            StartedWorkingOn = driver.StartedWorkingOn;
+            Categories = new List<Category>(driver.Categories);
+        }
+        #endregion
+
         #region EF Navigation
 
         public List<Category> Categories { get; set; }

@@ -45,6 +45,17 @@ namespace CabFlow.Services
             }
         }
 
+        public void AddOrOpenTab(string header, Core.ViewModel content)
+        {
+            var tab = _tabs.FirstOrDefault(t => t.Header.ToString() == header);
+            if (tab == null)
+            {
+                AddTab(header, content);
+                tab = _tabs.FirstOrDefault(t => t.Header.ToString() == header);
+            }
+            SelectedTab = tab;
+        }
+
         public void RemoveTab(string header) {
             var tab = _tabs.FirstOrDefault(t => t.Header.ToString() == header);
             if (tab != null)

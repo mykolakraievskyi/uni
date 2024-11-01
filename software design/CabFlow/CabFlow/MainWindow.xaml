@@ -19,6 +19,8 @@
                    VerticalAlignment="Bottom"
                    Padding="0, 30, 0, 0"/>
         <TabControl Grid.Row="1" 
-                    x:Name="TabControl" ItemsSource="{Binding Tabs}"></TabControl>
+                    x:Name="TabControl" 
+                    ItemsSource="{Binding Tabs}"
+                    SelectedItem="{Binding SelectedTab}"></TabControl>
     </Grid>
 </Window>

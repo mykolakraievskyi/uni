@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using CabFlow.Core;
 using CabFlow.Model;
 
@@ -12,11 +13,14 @@ namespace CabFlow.ViewModel.Orders
     {
         public OrderViewModel(Order order)
         {
-            Number = order.Number;
-            Vehicle = order.Vehicle.Info;
-            Driver = order.Driver.Fullname;
-            OrderStatus = order.OrderStatus.Name;
-            PickUpTime = order.PickUpTime;
+            if (order is not null)
+            {
+                Number = order.Number;
+                Vehicle = order.Vehicle.Info;
+                Driver = order.Driver.Fullname;
+                OrderStatus = order.OrderStatus.Name;
+                PickUpTime = order.PickUpTime;
+            }
         }
 
         private int _number;
@@ -53,6 +57,16 @@ namespace CabFlow.ViewModel.Orders
         {
             get => _pickUpTime;
             set { _pickUpTime = value; OnPropertyChanged(); }
+        }
+
+        public override void SaveData()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Cancel()
+        {
+            throw new NotImplementedException();
         }
     }
 }

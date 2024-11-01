@@ -70,5 +70,15 @@ namespace CabFlow.ViewModel.Vehicles
             get => _category;
             set { _category = value; OnPropertyChanged(); }
         }
+
+        public override void SaveData()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Cancel()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

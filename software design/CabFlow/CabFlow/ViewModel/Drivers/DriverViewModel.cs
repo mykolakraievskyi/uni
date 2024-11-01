@@ -29,7 +29,7 @@ namespace CabFlow.ViewModel.Drivers
                 Categories = !driver.Categories.IsNullOrEmpty() ? string.Join(", ", driver.Categories.Select(c => c.Name)) : "B";
             }
 
-            ChangeEditCommand = new RelayCommand(execute: x => IsEditing = !IsEditing, canExecute: x => true);
+            _driverBackup = driver;
         }
            
 
@@ -42,6 +42,8 @@ namespace CabFlow.ViewModel.Drivers
         private float _rating;
         private DateTime _startedWorkingOn;
         private string _categories;
+
+        private Driver _driverBackup;
 
         public string Firstname
         {
@@ -97,6 +99,14 @@ namespace CabFlow.ViewModel.Drivers
             set { _categories = value; OnPropertyChanged(); }
         }
 
-        public RelayCommand ChangeEditCommand { get; set; }
+        public override void SaveData()
+        {
+            
+        }
+
+        public override void Cancel()
+        {
+
+        }
     }
 }

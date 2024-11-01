@@ -4,31 +4,46 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CabFlow.View.Orders"
+      xmlns:core="clr-namespace:CabFlow.Core"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="OrderView">
 
+    <Page.Resources>
+        <core:EditModeToButtonContentConverter x:Key="EditModeToButtonContentConverter" />
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Page.Resources>
     <Grid>
-        <StackPanel>
-            <Label Content="Number" />
-            <TextBox Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}"
-                     IsReadOnly="{Binding IsEditable}" />
+        <ScrollViewer>
+            <StackPanel>
+                <TextBlock Text="Number" />
+                <TextBox Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding IsEditing}"  />
 
-            <Label Content="Vehicle" />
-            <TextBox Text="{Binding Vehicle, UpdateSourceTrigger=PropertyChanged}"
-                     IsReadOnly="{Binding IsEditable}" />
+                <TextBlock Text="Vehicle" />
+                <TextBox Text="{Binding Vehicle, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding IsEditing}"  />
 
-            <Label Content="Driver" />
-            <TextBox Text="{Binding Driver, UpdateSourceTrigger=PropertyChanged}"
-                     IsReadOnly="{Binding IsEditable}" />
+                <TextBlock Text="Driver" />
+                <TextBox Text="{Binding Driver, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding IsEditing}" />
 
-            <Label Content="Order Status" />
-            <TextBox Text="{Binding OrderStatus, UpdateSourceTrigger=PropertyChanged}"
-                     IsReadOnly="{Binding IsEditable}" />
+                <TextBlock Text="Order Status" />
+                <TextBox Text="{Binding OrderStatus, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding IsEditing}"  />
 
-            <Label Content="Pick Up Time" />
-            <DatePicker SelectedDate="{Binding PickUpTime, UpdateSourceTrigger=PropertyChanged}"
-                        IsEnabled="{Binding IsEditable}" />
-        </StackPanel>
+                <TextBlock Text="Pick Up Time" />
+                <DatePicker SelectedDate="{Binding PickUpTime, UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="{Binding IsEditing}"  />
+                <StackPanel Orientation="Horizontal">
+                    <Button Command="{Binding ChangeEditCommand}"
+                            Content="{Binding IsEditing, Converter={StaticResource EditModeToButtonContentConverter}}"></Button>
+
+                    <Button Visibility="{Binding IsEditing, Converter={StaticResource BoolToVisibilityConverter}}"
+                            Content="Cancel"></Button>
+
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

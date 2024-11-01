@@ -4,15 +4,18 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using CabFlow.Core;
 using CabFlow.Model;
 using CabFlow.Services;
+using CabFlow.ViewModel.Drivers;
 
 namespace CabFlow.ViewModel.Orders
 {
     public class OrderListViewModel : Core.ViewModel
     {
         private readonly OrderService _orderService;
+        private readonly TabService _tabService;
         public ObservableCollection<Order> _orders;
         public ObservableCollection<Order> Orders
         {
@@ -24,9 +27,23 @@ namespace CabFlow.ViewModel.Orders
             }
         }
 
-        public OrderListViewModel(OrderService orderService)
+        private Order _selectedOrder;
+        public Order SelectedOrder
+        {
+            get => _selectedOrder;
+            set
+            {
+                _selectedOrder = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ICommand OpenOrderCommand;
+
+        public OrderListViewModel(OrderService orderService, TabService tabService)
         {
             _orderService = orderService;
+            _tabService = tabService;
             Orders =
             [
                 new Order()
@@ -53,6 +70,16 @@ namespace CabFlow.ViewModel.Orders
             //InitAsync();
         }
 
+        public void OpenOrder()
+        {
+           
+        }
+
+        public void OpenOrder(Order order = null)
+        {
+            var header = order == null ? "New Order" : order.Number.ToString();
+            _tabService.AddOrOpenTab(header, (new OrderViewModel(order)));
+        }
         private async Task InitAsync()
         {
             Orders = new ObservableCollection<Order>(await _orderService.GetOrdersAsync());

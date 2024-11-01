@@ -27,6 +27,7 @@ namespace CabFlow.ViewModel
             _tabService.AddTab("Vehicles", vehicleListViewModel);
             _tabService.AddTab("Orders", orderListViewModel);
             Tabs = _tabService.Tabs;
+            SelectedTab = Tabs[0];
         }
 
         private TabService _tabService;

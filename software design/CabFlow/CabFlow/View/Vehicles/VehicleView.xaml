@@ -4,39 +4,54 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CabFlow.View.Vehicles"
+      xmlns:core="clr-namespace:CabFlow.Core"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="VehicleView">
 
+    <Page.Resources>
+        <core:EditModeToButtonContentConverter x:Key="EditModeToButtonContentConverter" />
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Page.Resources>
     <Grid>
-        <StackPanel>
-            <Label Content="Number" />
-            <TextBox Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}" 
-                     IsReadOnly="{Binding IsEditable}" />
+        <ScrollViewer>
+            <StackPanel>
+                <Label Content="Number" />
+                <TextBox Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}" 
+                         IsReadOnly="{Binding IsEditable}" />
 
-            <Label Content="License Plate" />
-            <TextBox Text="{Binding LicensePlate, UpdateSourceTrigger=PropertyChanged}" 
-                     IsReadOnly="{Binding IsEditable}" />
+                <Label Content="License Plate" />
+                <TextBox Text="{Binding LicensePlate, UpdateSourceTrigger=PropertyChanged}" 
+                         IsReadOnly="{Binding IsEditable}" />
 
-            <Label Content="Model" />
-            <TextBox Text="{Binding Model, UpdateSourceTrigger=PropertyChanged}" 
-                     IsReadOnly="{Binding IsEditable}" />
+                <Label Content="Model" />
+                <TextBox Text="{Binding Model, UpdateSourceTrigger=PropertyChanged}" 
+                         IsReadOnly="{Binding IsEditable}" />
 
-            <Label Content="Manufacturer" />
-            <TextBox Text="{Binding Manufacturer, UpdateSourceTrigger=PropertyChanged}" 
-                     IsReadOnly="{Binding IsEditable}" />
+                <Label Content="Manufacturer" />
+                <TextBox Text="{Binding Manufacturer, UpdateSourceTrigger=PropertyChanged}" 
+                         IsReadOnly="{Binding IsEditable}" />
 
-            <Label Content="Year" />
-            <TextBox Text="{Binding Year, UpdateSourceTrigger=PropertyChanged}" 
-                     IsReadOnly="{Binding IsEditable}" />
+                <Label Content="Year" />
+                <TextBox Text="{Binding Year, UpdateSourceTrigger=PropertyChanged}" 
+                         IsReadOnly="{Binding IsEditable}" />
 
-            <Label Content="Seats" />
-            <TextBox Text="{Binding Seats, UpdateSourceTrigger=PropertyChanged}" 
-                     IsReadOnly="{Binding IsEditable}" />
+                <Label Content="Seats" />
+                <TextBox Text="{Binding Seats, UpdateSourceTrigger=PropertyChanged}" 
+                         IsReadOnly="{Binding IsEditable}" />
 
-            <Label Content="Category" />
-            <TextBox Text="{Binding Category, UpdateSourceTrigger=PropertyChanged}" 
-                     IsReadOnly="{Binding IsEditable}" />
-        </StackPanel>
+                <Label Content="Category" />
+                <TextBox Text="{Binding Category, UpdateSourceTrigger=PropertyChanged}" 
+                         IsReadOnly="{Binding IsEditable}" />
+                <StackPanel Orientation="Horizontal">
+                    <Button Command="{Binding ChangeEditCommand}"
+                            Content="{Binding IsEditing, Converter={StaticResource EditModeToButtonContentConverter}}"></Button>
+
+                    <Button Visibility="{Binding IsEditing, Converter={StaticResource BoolToVisibilityConverter}}"
+                            Content="Cancel"></Button>
+
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

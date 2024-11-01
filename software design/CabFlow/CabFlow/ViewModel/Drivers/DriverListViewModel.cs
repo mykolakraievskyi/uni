@@ -121,7 +121,7 @@ namespace CabFlow.ViewModel.Drivers
         public void OpenDriver(Driver driver = null)
         {
             var header = driver == null ? "New Driver" : driver.Fullname;
-            _tabService.AddTab(header, (new DriverViewModel(driver)));
+            _tabService.AddOrOpenTab(header, (new DriverViewModel(driver)));
         }
 
         public void OpenDriver()

@@ -9,7 +9,14 @@
       Title="OrderListView">
 
     <Grid>
-        <DataGrid ItemsSource="{Binding Orders}" AutoGenerateColumns="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DataGrid
+            ItemsSource="{Binding Orders}" 
+            SelectedItem="{Binding SelectedOrder}"
+            AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Number" Binding="{Binding Number}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Status" Binding="{Binding OrderStatus.Name}"></DataGridTextColumn>
@@ -17,6 +24,6 @@
                 <DataGridTextColumn Header="Vehicle" Binding="{Binding Vehicle.Info}" ></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        
+        <Button Grid.Row="1" Command="{Binding OpenOrderCommand}" Content="Add"></Button>
     </Grid>
 </Page>
