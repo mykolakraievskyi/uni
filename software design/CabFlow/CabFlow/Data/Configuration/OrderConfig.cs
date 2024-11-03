@@ -14,8 +14,12 @@ namespace CabFlow.Data.Configuration
         public void Configure(EntityTypeBuilder<Order> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.HasOne(x => x.Driver).WithMany(x => x.Orders).HasForeignKey(x => x.DriverId);
-            builder.HasOne(x => x.OrderStatus).WithMany(x => x.Orders).HasForeignKey(x => x.OrderStatusId);
+            builder.HasOne(x => x.Driver)
+                .WithMany(x => x.Orders)
+                .HasForeignKey(x => x.DriverId);
+            builder.HasOne(x => x.OrderStatus)
+                .WithMany(x => x.Orders)
+                .HasForeignKey(x => x.OrderStatusId);
         }
     }
 }
