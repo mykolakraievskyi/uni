@@ -4,6 +4,8 @@ import Enums.TransportType;
 import Models.Point;
 import Models.Trip;
 
+import java.time.Duration;
+import java.time.ZonedDateTime;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -26,11 +28,22 @@ public class TransportService {
 
     public static double getTripTimeInHours(Trip trip) {
         var points = trip.getPoints();
-        double totalTime = 0.0;
+
+        if (points.isEmpty()) {
+            return 0.0;
+        }
+
+        ZonedDateTime currentDateTime = trip.getStartTime().atZone(points.getFirst().getTimeZone());
+        double totalHours = 0.0;
 
         for (int i = 0; i < points.size(); i++) {
             Point currentPoint = points.get(i);
-            totalTime += currentPoint.getStayDuration().toHours(); // Convert duration to hours
+
+            if (currentPoint.getStayDuration() != null) {
+                currentDateTime = currentDateTime.plus(currentPoint.getStayDuration());
+                totalHours += currentPoint.getStayDuration().toHours() +
+                        currentPoint.getStayDuration().toMinutesPart() / 60.0;
+            }
 
             if (i < points.size() - 1) {
                 Point nextPoint = points.get(i + 1);
@@ -38,11 +51,15 @@ public class TransportService {
                 double speed = getAverageSpeed(currentPoint.getTransportType());
 
                 if (speed > 0) {
-                    totalTime += distance / speed;
+                    double travelTimeHours = distance / speed;
+                    totalHours += travelTimeHours;
+                    currentDateTime = currentDateTime.plus(Duration.ofMinutes((long) (travelTimeHours * 60)));
+                    currentDateTime = currentDateTime.withZoneSameInstant(nextPoint.getTimeZone());
                 }
             }
         }
-        return totalTime;
+
+        return totalHours;
     }
 
     // in kilometers
