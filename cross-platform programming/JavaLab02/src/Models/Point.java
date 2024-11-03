@@ -4,6 +4,7 @@ import Enums.PointType;
 import Enums.TransportType;
 
 import java.time.Duration;
+import java.time.ZoneId;
 
 public class Point {
     private PointType type;
@@ -11,10 +12,12 @@ public class Point {
     private String name;
     private TransportType transportType;
     private Duration stayDuration;
+    private ZoneId timeZone;
 
-    public Point(PointType type, Coordinate coordinate) {
+    public Point(PointType type, Coordinate coordinate, ZoneId timeZone) {
         this.type = type;
         this.coordinate = coordinate;
+        this.timeZone = timeZone;
     }
 
     public TransportType getTransportType() {
@@ -47,17 +50,25 @@ public class Point {
     public void setStayDuration(Duration stayDuration) {
         this.stayDuration = stayDuration;
     }
+    public ZoneId getTimeZone() {
+        return timeZone;
+    }
+
+    public void setTimeZone(ZoneId timeZone) {
+        this.timeZone = timeZone;
+    }
 
     @Override
     public String toString() {
         return String.format(
-                "Name = %s, type = %s, coordinate = (%7.5f, %7.5f), transportType = %s, stayDuration = %s",
+                "Name = %s, type = %s, coordinate = (%7.5f, %7.5f), transportType = %s, stayDuration = %s, timeZone = %s",
                 name != null ? name : "Unnamed",
                 type,
                 coordinate.getLongitude(),
                 coordinate.getLatitude(),
                 transportType,
-                stayDuration != null ? formatDuration(stayDuration) : "None"
+                stayDuration != null ? formatDuration(stayDuration) : "None",
+                timeZone != null ? timeZone : "None"
         );
     }
 
