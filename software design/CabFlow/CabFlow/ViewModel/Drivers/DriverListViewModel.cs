@@ -65,9 +65,9 @@ namespace CabFlow.ViewModel.Drivers
              InitAsync();
         }
 
-        private async Task InitAsync()
+        private void InitAsync()
         {
-            Drivers = new ObservableCollection<Driver>(await _driverService.GetDriversAsync());
+            Drivers = new ObservableCollection<Driver>(_driverService.GetDriversAsync());
         }
 
         public void OpenDriver(Driver driver = null)
@@ -84,7 +84,7 @@ namespace CabFlow.ViewModel.Drivers
         
         public async void FetchData(object? sender, EventArgs e)
         {
-            Drivers = new ObservableCollection<Driver>(await _driverService.GetDriversAsync());
+            Drivers = new ObservableCollection<Driver>(_driverService.GetDriversAsync());
         }
     }
 }

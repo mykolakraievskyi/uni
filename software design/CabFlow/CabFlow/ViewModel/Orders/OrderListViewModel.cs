@@ -60,14 +60,14 @@ namespace CabFlow.ViewModel.Orders
             var header = order == null ? "New Order" : order.Number.ToString();
             _tabService.AddOrOpenTab(header, (new OrderViewModel(order, _orderService)));
         }
-        private async Task InitAsync()
+        private void InitAsync()
         {
-            Orders = new ObservableCollection<Order>(await _orderService.GetOrdersAsync());
+            Orders = new ObservableCollection<Order>(_orderService.GetOrdersAsync());
         }
 
         public async void FetchData(object? sender, EventArgs e)
         {
-            Orders = new ObservableCollection<Order>(await _orderService.GetOrdersAsync());
+            Orders = new ObservableCollection<Order>(_orderService.GetOrdersAsync());
         }
     }
 }

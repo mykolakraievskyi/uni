@@ -18,12 +18,12 @@ namespace CabFlow.Services
         {
             _context = context;
         }
-        public async Task<List<Driver>> GetDriversAsync()
+        public List<Driver> GetDriversAsync()
         {
             List<Driver> drivers;
             using (var scope = new TransactionScope(TransactionScopeOption.RequiresNew, TransactionScopeAsyncFlowOption.Enabled))
             {
-                drivers = await _context.Drivers.ToListAsync();
+                drivers = _context.Drivers.ToList();
                 scope.Complete();
             }
 

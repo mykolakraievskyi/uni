@@ -41,9 +41,9 @@ namespace CabFlow.ViewModel.Vehicles
             InitAsync();
         }
 
-        public async Task InitAsync()
+        public void InitAsync()
         {
-            Vehicles = new ObservableCollection<Vehicle>(await _vehicleService.GetVehiclesAsync());
+            Vehicles = new ObservableCollection<Vehicle>(_vehicleService.GetVehiclesAsync());
         }
 
         private void OpenVehicle(Vehicle vehicle)
@@ -54,7 +54,7 @@ namespace CabFlow.ViewModel.Vehicles
 
         public async void FetchData(object? sender, EventArgs e)
         {
-            Vehicles = new ObservableCollection<Vehicle>(await _vehicleService.GetVehiclesAsync());
+            Vehicles = new ObservableCollection<Vehicle>(_vehicleService.GetVehiclesAsync());
         }
     }
 }

@@ -17,12 +17,12 @@ namespace CabFlow.Services
         {
             _context = context;
         }
-        public async Task<List<Order>> GetOrdersAsync()
+        public  List<Order> GetOrdersAsync()
         {
             List<Order> orders;
             using (var scope = new TransactionScope(TransactionScopeOption.RequiresNew, TransactionScopeAsyncFlowOption.Enabled))
             {
-                orders = await _context.Orders.ToListAsync();
+                orders = _context.Orders.ToList();
                 scope.Complete();
             }
 

@@ -17,12 +17,12 @@ namespace CabFlow.Services
         {
             _context = context;
         }
-        public async Task<List<Vehicle>> GetVehiclesAsync()
+        public List<Vehicle> GetVehiclesAsync()
         {
             List<Vehicle> vehicles;
             using (var scope = new TransactionScope(TransactionScopeOption.RequiresNew, TransactionScopeAsyncFlowOption.Enabled))
             {
-                vehicles = await _context.Vehicles.ToListAsync();
+                vehicles =  _context.Vehicles.ToList();
                 scope.Complete();
             }
 
