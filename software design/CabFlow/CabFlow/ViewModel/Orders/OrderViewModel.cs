@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using CabFlow.Core;
 using CabFlow.Model;
+using CabFlow.Services;
 
 namespace CabFlow.ViewModel.Orders
 {
     public class OrderViewModel: EditableViewModel
     {
-        public OrderViewModel(Order order)
+        public OrderViewModel(Order order, OrderService orderService)
         {
+            _orderService = orderService;
             if (order is not null)
             {
                 Number = order.Number;
@@ -21,8 +23,12 @@ namespace CabFlow.ViewModel.Orders
                 OrderStatus = order.OrderStatus.Name;
                 PickUpTime = order.PickUpTime;
             }
+
+            _backupOrder = order;
         }
 
+        private readonly OrderService _orderService;
+        private Order _backupOrder;
         private int _number;
         private string _vehicle;
         private string _driver;
@@ -61,7 +67,27 @@ namespace CabFlow.ViewModel.Orders
 
         public override void SaveData()
         {
-            throw new NotImplementedException();
+            var isAdding = _backupOrder is null;
+
+            if (isAdding)
+            {
+                _backupOrder = new Order();
+            }
+
+            _backupOrder.Number = Number;
+            //_backupOrder.Vehicle = new Vehicle { Info = Vehicle };
+            //_backupOrder.Driver = new Driver { Fullname = Driver };
+            //_backupOrder.OrderStatus = new OrderStatus { Name = OrderStatus };
+            _backupOrder.PickUpTime = PickUpTime;
+
+            if (isAdding)
+            {  
+                _orderService.AddOrderAsync(_backupOrder);
+            }
+            else
+            {
+                _orderService.UpdateOrderAsync(_backupOrder);
+            }
         }
 
         public override void Cancel()

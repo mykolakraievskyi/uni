@@ -14,8 +14,9 @@ namespace CabFlow.ViewModel.Drivers
 {
     public class DriverViewModel : EditableViewModel
     {
-        public DriverViewModel(Driver driver)
+        public DriverViewModel(Driver driver, DriverService driverService)
         {
+            _driverService = driverService;
             if (driver is not null)
             {
                 Firstname = driver.Firstname;
@@ -31,8 +32,8 @@ namespace CabFlow.ViewModel.Drivers
 
             _driverBackup = driver;
         }
-           
 
+        private DriverService _driverService;
         private string _firstname;
         private string _lastname;
         private int _number;
@@ -99,8 +100,35 @@ namespace CabFlow.ViewModel.Drivers
             set { _categories = value; OnPropertyChanged(); }
         }
 
-        public override void SaveData()
+        public override async void SaveData()
         {
+            var isAdding = _driverBackup == null;
+
+            if (isAdding)
+            {
+                _driverBackup = new Driver();
+            }
+
+            _driverBackup.Firstname = Firstname;
+            _driverBackup.Lastname = Lastname;
+            _driverBackup.Number = Number;
+            _driverBackup.DateOfBirth = DateOfBirth;
+            _driverBackup.PhoneNumber = PhoneNumber;
+            _driverBackup.Email = Email;
+            _driverBackup.Rating = Rating;
+            _driverBackup.StartedWorkingOn = StartedWorkingOn;
+            _driverBackup.Categories = Categories.Split(", ").Select(c => new Category() { Name = c }).ToList();
+            _driverBackup.Rating = Rating;
+
+            if (isAdding)
+            {  
+                _driverService.AddDriverAsync(_driverBackup);
+            }
+            else
+            {
+                _driverService.UpdateDriverAsync(_driverBackup);
+            }
+
             
         }
 

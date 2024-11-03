@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows.Input;
 using CabFlow.Core;
 using CabFlow.Model;
@@ -44,30 +45,9 @@ namespace CabFlow.ViewModel.Orders
         {
             _orderService = orderService;
             _tabService = tabService;
-            Orders =
-            [
-                new Order()
-                {
-                    Driver = new Driver()
-                    {
-                        Firstname = "John",
-                        Lastname = "Smith"
-                    },
-                    Vehicle = new Vehicle()
-                    {
-                        Manufacturer = "Audi",
-                        Model = "A4",
-                        LicensePlate = "ABCDE",
-                        Year = 2020
-                    },
-                    OrderStatus = new OrderStatus()
-                    {
-                        Name = "Planned"
-                    },
-                    Number = 1
-                }
-            ];
-            //InitAsync();
+
+            _tabService.TabChanged += FetchData;
+            InitAsync();
         }
 
         public void OpenOrder()
@@ -78,9 +58,14 @@ namespace CabFlow.ViewModel.Orders
         public void OpenOrder(Order order = null)
         {
             var header = order == null ? "New Order" : order.Number.ToString();
-            _tabService.AddOrOpenTab(header, (new OrderViewModel(order)));
+            _tabService.AddOrOpenTab(header, (new OrderViewModel(order, _orderService)));
         }
         private async Task InitAsync()
+        {
+            Orders = new ObservableCollection<Order>(await _orderService.GetOrdersAsync());
+        }
+
+        public async void FetchData(object? sender, EventArgs e)
         {
             Orders = new ObservableCollection<Order>(await _orderService.GetOrdersAsync());
         }

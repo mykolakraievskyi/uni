@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows.Input;
 using CabFlow.Core;
 using CabFlow.Model;
@@ -30,42 +31,14 @@ namespace CabFlow.ViewModel.Vehicles
 
         public VehicleListViewModel(VehicleService vehicleService, TabService tabService)
         {
+            OpenVehicleCommand = new RelayCommand(execute: x => OpenVehicle((Vehicle)x), canExecute: _ => true);
+
             _tabService = tabService;
             _vehicleService = vehicleService;
 
-            OpenVehicleCommand = new RelayCommand(execute: x => OpenVehicle((Vehicle)x), canExecute: _ => true);
+            _tabService.TabChanged += FetchData;
 
-            Vehicles =
-            [
-                new Vehicle()
-                {
-                    LicensePlate = "ABCDEF",
-                    Model = "A4",
-                    Manufacturer = "Audi",
-                    Year = 2020,
-                    Seats = 3,
-                    Number = 1
-                },
-                new Vehicle()
-                {
-                    LicensePlate = "QWERTY",
-                    Model = "RS7",
-                    Manufacturer = "Audi",
-                    Year = 2020,
-                    Seats = 1,
-                    Number = 2
-                },
-                new Vehicle()
-                {
-                    LicensePlate = "QWERTY",
-                    Model = "Q8",
-                    Manufacturer = "Audi",
-                    Year = 2023,
-                    Seats = 4,
-                    Number = 3
-                }
-            ];
-            //InitAsync();
+            InitAsync();
         }
 
         public async Task InitAsync()
@@ -75,8 +48,13 @@ namespace CabFlow.ViewModel.Vehicles
 
         private void OpenVehicle(Vehicle vehicle)
         {
-            var vm = new VehicleViewModel(vehicle);
+            var vm = new VehicleViewModel(vehicle, _vehicleService);
             _tabService.AddTab($"{vehicle.Number}", vm);
+        }
+
+        public async void FetchData(object? sender, EventArgs e)
+        {
+            Vehicles = new ObservableCollection<Vehicle>(await _vehicleService.GetVehiclesAsync());
         }
     }
 }

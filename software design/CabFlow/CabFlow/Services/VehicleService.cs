@@ -4,37 +4,50 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using CabFlow.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace CabFlow.Services
 {
-    public class VehicleService(ICabFlowContext context)
+    public class VehicleService
     {
-        public Task<List<Vehicle>> GetVehiclesAsync()
+        private readonly CabFlowContext _context;
+        public VehicleService(CabFlowContext context)
         {
-            return context.Vehicles.ToListAsync();
+            _context = context;
+        }
+        public async Task<List<Vehicle>> GetVehiclesAsync()
+        {
+            List<Vehicle> vehicles;
+            using (var scope = new TransactionScope(TransactionScopeOption.RequiresNew, TransactionScopeAsyncFlowOption.Enabled))
+            {
+                vehicles = await _context.Vehicles.ToListAsync();
+                scope.Complete();
+            }
+
+            return vehicles;
         }
         public Task<Vehicle> GetVehicleByIdAsync(int id)
         {
-            return context.Vehicles.FirstOrDefaultAsync(v => v.Id == id);
+            return _context.Vehicles.FirstOrDefaultAsync(v => v.Id == id);
         }
         public async void AddVehicleAsync(Vehicle vehicle)
         {
-            context.Vehicles.Add(vehicle);
-            await context.SaveChangesAsync();
+            _context.Vehicles.Add(vehicle);
+            await _context.SaveChangesAsync();
         }
 
         public async void UpdateVehicleAsync(Vehicle vehicle)
         {
-            context.Vehicles.Update(vehicle);
-            await context.SaveChangesAsync();
+            _context.Vehicles.Update(vehicle);
+            await _context.SaveChangesAsync();
         }
 
         public async void DeleteVehicleAsync(Vehicle vehicle)
         {
-            context.Vehicles.Remove(vehicle);
-            await context.SaveChangesAsync();
+            _context.Vehicles.Remove(vehicle);
+            await _context.SaveChangesAsync();
         }
     }
 }

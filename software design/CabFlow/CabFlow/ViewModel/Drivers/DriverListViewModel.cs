@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows;
 using System.Windows.Input;
 using CabFlow.Core;
@@ -59,58 +60,9 @@ namespace CabFlow.ViewModel.Drivers
             _driverService = driverService;
             _tabService = tabService;
 
-            Drivers = [new Driver()
-            {
-                Firstname = "Mykola",
-                Lastname = "Kraievskyi",
-                DateOfBirth = new DateTime(2005, 05, 22),
-                Email = "m.kraievskyi@gmail.com",
-                PhoneNumber = "0970080375",
-                Rating = 5.0f
-            }, new Driver()
-            {
-                Firstname = "Katia",
-                Lastname = "Hilfanova",
-                DateOfBirth = new DateTime(2005, 01, 12),
-                Email = "k.hilfanova@gmail.com",
-                PhoneNumber = "0970080376",
-                Rating = 5.0f
-            },new Driver()
-            {
-                Firstname = "Mykola",
-                Lastname = "Kraievskyi",
-                DateOfBirth = new DateTime(2005, 05, 22),
-                Email = "m.kraievskyi@gmail.com",
-                PhoneNumber = "0970080375",
-                Rating = 5.0f
-            }, new Driver()
-            {
-                Firstname = "Katia",
-                Lastname = "Hilfanova",
-                DateOfBirth = new DateTime(2005, 01, 12),
-                Email = "k.hilfanova@gmail.com",
-                PhoneNumber = "0970080376",
-                Rating = 5.0f
-            },new Driver()
-            {
-                Firstname = "Mykola",
-                Lastname = "Kraievskyi",
-                DateOfBirth = new DateTime(2005, 05, 22),
-                Email = "m.kraievskyi@gmail.com",
-                PhoneNumber = "0970080375",
-                Rating = 5.0f
-            }, new Driver()
-            {
-                Firstname = "Katia",
-                Lastname = "Hilfanova",
-                DateOfBirth = new DateTime(2005, 01, 12),
-                Email = "k.hilfanova@gmail.com",
-                PhoneNumber = "0970080376",
-                Rating = 5.0f
-            }];
-
-            //
-            //InitAsync();
+            _tabService.TabChanged += FetchData;
+            
+             InitAsync();
         }
 
         private async Task InitAsync()
@@ -121,13 +73,18 @@ namespace CabFlow.ViewModel.Drivers
         public void OpenDriver(Driver driver = null)
         {
             var header = driver == null ? "New Driver" : driver.Fullname;
-            _tabService.AddOrOpenTab(header, (new DriverViewModel(driver)));
+            _tabService.AddOrOpenTab(header, (new DriverViewModel(driver, _driverService)));
         }
 
         public void OpenDriver()
         {
             OpenDriver(SelectedDriver);
             SelectedDriver = null;
+        }
+        
+        public async void FetchData(object? sender, EventArgs e)
+        {
+            Drivers = new ObservableCollection<Driver>(await _driverService.GetDriversAsync());
         }
     }
 }

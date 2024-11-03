@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Windows;
 using CabFlow.Data.CabFlowDbContext;
 using CabFlow.Services;
@@ -26,7 +27,12 @@ namespace CabFlow
         {
             _host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
             {
-                services.AddDbContext<ICabFlowContext, CabFlowContext>(options => options.UseSqlServer(ConfigurationManager.ConnectionStrings["CabFlow"].ConnectionString));
+                services.AddDbContext<CabFlowContext>(options => options.UseSqlServer(ConfigurationManager.ConnectionStrings["CabFlow"].ConnectionString), ServiceLifetime.Scoped);
+
+                // Services
+                services.AddTransient<DriverService>();
+                services.AddTransient<VehicleService>();
+                services.AddTransient<OrderService>();
 
                 // ViewModels
                 services.AddTransient<MainViewModel>();
@@ -48,9 +54,6 @@ namespace CabFlow
 
                 // Services
                 services.AddSingleton<TabService>();
-                services.AddSingleton<DriverService>();
-                services.AddSingleton<VehicleService>();
-                services.AddSingleton<OrderService>();
             }).Build();
         }
         protected override async void OnStartup(StartupEventArgs e)

@@ -11,6 +11,7 @@ namespace CabFlow.Core
     {
         public EditableViewModel()
         {
+            IsEditing = true;
             ChangeEditCommand = new RelayCommand(execute: x =>
             {
                 if (IsEditing)
@@ -28,7 +29,7 @@ namespace CabFlow.Core
             });
         }
 
-        private bool _isEditing = false;
+        private bool _isEditing;
 
         public bool IsEditing
         {

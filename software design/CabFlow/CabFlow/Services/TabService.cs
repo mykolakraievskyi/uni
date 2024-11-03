@@ -17,12 +17,24 @@ namespace CabFlow.Services
         public TabItem SelectedTab
         {
             get => _selectedTab;
-            set { _selectedTab = value; OnPropertyChanged(); }
+            set
+            {
+                _selectedTab = value; 
+                OnPropertyChanged();
+                OnTabChanged(default);
+            }
         }
         public ObservableCollection<TabItem> Tabs => _tabs;
 
         private TabItem _selectedTab;
         private readonly ObservableCollection<TabItem> _tabs = new();
+
+        public event EventHandler TabChanged;
+
+        private void OnTabChanged(EventArgs e)
+        {
+            TabChanged?.Invoke(this, e);
+        }
 
         public void AddTab(string header, Core.ViewModel content)
         {

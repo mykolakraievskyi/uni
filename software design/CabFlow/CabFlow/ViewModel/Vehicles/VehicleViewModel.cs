@@ -5,22 +5,29 @@ using System.Text;
 using System.Threading.Tasks;
 using CabFlow.Core;
 using CabFlow.Model;
+using CabFlow.Services;
 
 namespace CabFlow.ViewModel.Vehicles
 {
     public class VehicleViewModel: EditableViewModel
     {
-        public VehicleViewModel(Vehicle vehicle)
+        public VehicleViewModel(Vehicle vehicle, VehicleService vehicleService)
         {
-            Number = vehicle.Number;
-            LicensePlate = vehicle.LicensePlate;
-            Model = vehicle.Model;
-            Manufacturer = vehicle.Manufacturer;
-            Year = vehicle.Year;
-            Seats = vehicle.Seats;
-            Category = vehicle.Category.Name;
+            if (vehicle is not null)
+            {
+                Number = vehicle.Number;
+                LicensePlate = vehicle.LicensePlate;
+                Model = vehicle.Model;
+                Manufacturer = vehicle.Manufacturer;
+                Year = vehicle.Year;
+                Seats = vehicle.Seats;
+                Category = vehicle.Category.Name;
+            }
+            _backupVehicle = vehicle;
         }
 
+        private Vehicle _backupVehicle;
+        private VehicleService _vehicleService;
         private int _number;
         private string _licensePlate;
         private string _model;
@@ -73,12 +80,33 @@ namespace CabFlow.ViewModel.Vehicles
 
         public override void SaveData()
         {
-            throw new NotImplementedException();
+            var IsAdding = _backupVehicle is null;
+
+            if (IsAdding)
+            {
+                _backupVehicle = new Vehicle();
+            }
+
+            _backupVehicle.Number = Number;
+            _backupVehicle.LicensePlate = LicensePlate;
+            _backupVehicle.Model = Model;
+            _backupVehicle.Manufacturer = Manufacturer;
+            _backupVehicle.Year = Year;
+            _backupVehicle.Seats = Seats;
+            _backupVehicle.Category = new Category { Name = Category };
+
+            if (IsAdding)
+            {
+                _vehicleService.AddVehicleAsync(_backupVehicle);
+            }
+            else
+            {
+                _vehicleService.UpdateVehicleAsync(_backupVehicle);
+            }
         }
 
         public override void Cancel()
         {
-            throw new NotImplementedException();
         }
     }
 }

@@ -12,8 +12,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace CabFlow.Data.CabFlowDbContext
 {
-    public class CabFlowContext(DbContextOptions options) : DbContext(options), ICabFlowContext
+    public class CabFlowContext: DbContext
     {
+        public CabFlowContext(DbContextOptions<CabFlowContext> options) : base(options)
+        {
+        }
+
+        public CabFlowContext() {}
         public DbSet<Driver> Drivers { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -23,6 +28,14 @@ namespace CabFlow.Data.CabFlowDbContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            // check if configuration is already done
+            if (!optionsBuilder.IsConfigured)
+            {
+                // resolve connection string from appsettings.json
+                var connectionString = ConfigurationManager.ConnectionStrings["CabFlow"].ConnectionString;
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+
             base.OnConfiguring(optionsBuilder);
         }
 
@@ -36,17 +49,17 @@ namespace CabFlow.Data.CabFlowDbContext
             modelBuilder.ApplyConfiguration(new PointConfig());
 
             modelBuilder.Entity<Category>().HasData(
-                new Category() {Name = "A"},
-                new Category() {Name = "B"},
-                new Category() {Name = "C"},
-                new Category() {Name = "D"},
-                new Category() {Name = "E"}
+                new Category() { Id = 1, Name = "A" },
+                new Category() { Id = 2, Name = "B" },
+                new Category() { Id = 3, Name = "C" },
+                new Category() { Id = 4, Name = "D" },
+                new Category() { Id = 5, Name = "E" }
             );
             modelBuilder.Entity<OrderStatus>().HasData(
-                new OrderStatus(){ Name = "Planned"},
-                new OrderStatus(){ Name = "In progress"},
-                new OrderStatus(){ Name = "Done"},
-                new OrderStatus(){ Name = "Cancelled"}
+                new OrderStatus() { Id = 1, Name = "Planned" },
+                new OrderStatus() { Id = 2, Name = "In progress" },
+                new OrderStatus() { Id = 3, Name = "Done" },
+                new OrderStatus() { Id = 4, Name = "Cancelled" }
             );
             base.OnModelCreating(modelBuilder);
         }
