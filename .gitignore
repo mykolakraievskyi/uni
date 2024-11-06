@@ -520,3 +520,5 @@ bin
 obj
 
 .vs/
+
+out
