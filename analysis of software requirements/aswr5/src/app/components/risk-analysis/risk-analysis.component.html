@@ -1,0 +1,124 @@
+<div class="flex">
+  <mat-button-toggle-group [(value)]="chosenType">
+    <mat-button-toggle [value]="type.Probability"
+      >Визначення ймовірності настання ризикових подій
+    </mat-button-toggle>
+    <mat-button-toggle [value]="type.Evaluation"
+      >Оцінка ризиків та пріоритетів</mat-button-toggle
+    >
+  </mat-button-toggle-group>
+</div>
+
+@if(chosenType == type.Probability) {
+<table mat-table [dataSource]="data">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>Номер</th>
+    <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Можливі ризикові події</th>
+    <td mat-cell *matCellDef="let row">{{ row.name | capitalize }}</td>
+  </ng-container>
+
+  @for(i of [0,1,2,3,4,5,6,7,8,9]; track i) {
+  <ng-container [matColumnDef]="'per' + i">
+    <th mat-header-cell *matHeaderCellDef>per {{ i }}</th>
+    <td mat-cell *matCellDef="let row">
+      <input
+        class="number-input"
+        [(ngModel)]="row.per[i]"
+        (change)="recalculate()"
+        appUkrainianNumber
+      />
+    </td>
+  </ng-container>
+  }
+  <ng-container matColumnDef="er">
+    <th mat-header-cell *matHeaderCellDef>Er</th>
+    <td mat-cell *matCellDef="let row">{{ row.er }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+</table>
+} @if(chosenType == type.Evaluation) {
+<table mat-table [dataSource]="data">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>Номер</th>
+    <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Можливі ризикові події</th>
+    <td mat-cell *matCellDef="let row">{{ row.name | capitalize }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="er">
+    <th mat-header-cell *matHeaderCellDef>Er</th>
+    <td mat-cell *matCellDef="let row">{{ row.er }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="lrer">
+    <th mat-header-cell *matHeaderCellDef>Lrer</th>
+    <td mat-cell *matCellDef="let row">{{ row.lrer }}</td>
+  </ng-container>
+  <ng-container matColumnDef="vrer">
+    <th mat-header-cell *matHeaderCellDef>Vrer</th>
+    <td mat-cell *matCellDef="let row">{{ row.vrer }}</td>
+  </ng-container>
+  <ng-container matColumnDef="priority">
+    <th mat-header-cell *matHeaderCellDef>Пріоритет</th>
+    <td mat-cell *matCellDef="let row">{{ getPriority(row.vrer) }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplayEvaluation"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsToDisplayEvaluation"></tr>
+</table>
+<table>
+  <thead>
+    <th>Ім'я</th>
+    <th>Значення</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Мін Vrer</td>
+      <td>{{ maxVrer }}</td>
+    </tr>
+    <tr>
+      <td>Макс Vrer</td>
+      <td>{{ minVrer }}</td>
+    </tr>
+    <tr>
+      <td>Перший інтервал</td>
+      <td>{{ intervals[0] }}</td>
+    </tr>
+    <tr>
+      <td>Другий інтервал</td>
+      <td>{{ intervals[1] }}</td>
+    </tr>
+    <tr>
+      <td>Третій інтервал</td>
+      <td>{{ intervals[2] }}</td>
+    </tr>
+  </tbody>
+</table>
+}
+
+<!-- <table mat-table [dataSource]="riskKey.value">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>Номер</th>
+    <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Можливі джерела появи ризиків</th>
+    <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+  </ng-container>
+  <ng-container matColumnDef="value">
+    <th mat-header-cell *matHeaderCellDef>Значення</th>
+    <td mat-cell *matCellDef="let row">
+      <input type="checkbox" [(ngModel)]="row.value" />
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+</table> -->

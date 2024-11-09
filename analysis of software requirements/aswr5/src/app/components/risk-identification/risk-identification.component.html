@@ -1,0 +1,68 @@
+<div class="flex">
+  <div class="menu">
+    <div class="fixed">
+      <table>
+        <tbody>
+          @for(menuKey of menuHeaders[chosenType] | keyvalue; track menuKey) {
+          <tr>
+            <td>{{ menuKey.value }}</td>
+            <td>{{ getTotal(menuKey.key) | number : "1.2-2" }}%</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+      <h2>Загалом {{ getTotal(riskTypeDict.total) | number : "1.2-2" }}%</h2>
+    </div>
+  </div>
+  <div class="table">
+    <mat-button-toggle-group [(value)]="chosenType">
+      <mat-button-toggle value="Risk"
+        >Визначення можливих джерел появи ризиків</mat-button-toggle
+      >
+      <mat-button-toggle value="Event"
+        >Ідентифікація потенційних ризикових подій</mat-button-toggle
+      >
+    </mat-button-toggle-group>
+    @for (riskKey of risks[chosenType] | keyvalue; track riskKey) {
+    <h2>{{ headers[riskKey.key] }}</h2>
+    <table mat-table [dataSource]="riskKey.value">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>Номер</th>
+        <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Можливі джерела появи ризиків</th>
+        <td mat-cell *matCellDef="let row">{{ row.name | capitalize }}</td>
+      </ng-container>
+      <ng-container matColumnDef="value">
+        <th mat-header-cell *matHeaderCellDef>Значення</th>
+        <td mat-cell *matCellDef="let row">
+          <input type="checkbox" [(ngModel)]="row.value" />
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+    </table>
+    }
+    <!-- <div *ngFor="let riskKey of risks[chosenType] | keyvalue">
+      <h6>{{ headers[riskKey.key] }}</h6>
+      <table>
+        <thead>
+          <tr>
+            <th>№</th>
+            <th>Можливі джерела появи ризиків</th>
+            <th>Значення</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of riskKey.value; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ row.name }}</td>
+            <td>{{ row.value }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div> -->
+  </div>
+</div>

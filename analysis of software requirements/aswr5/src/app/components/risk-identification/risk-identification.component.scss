@@ -1,0 +1,20 @@
+.flex {
+  display: flex;
+}
+
+.menu {
+  position: relative;
+  width: 20vw;
+  padding: 10px 0 0 10px;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.table {
+  width: 80vw;
+  thead {
+    width: 100%;
+  }
+}

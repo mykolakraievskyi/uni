@@ -1,0 +1,23 @@
+<table mat-table [dataSource]="risks">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>Номер</th>
+    <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Ризикова подія</th>
+    <td mat-cell *matCellDef="let row">{{ row.name | capitalize }}</td>
+  </ng-container>
+  <ng-container matColumnDef="value">
+    <th mat-header-cell *matHeaderCellDef>Значення</th>
+    <td mat-cell *matCellDef="let row">
+      <select [(value)]="row.value">
+        @for(event of projectEvents; track event) {
+        <option value="event">{{ event | capitalize }}</option>
+        }
+      </select>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+</table>
