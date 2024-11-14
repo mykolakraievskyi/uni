@@ -118,3 +118,21 @@ begin
 		left join Vehicle v on v.id = i.vehicleId
 		where d.id is null or v.id is null
 	)
+	begin 
+		raiserror('Цілісність даних порушена: Водій або транспортний засіб не існують у базі даних.', 16, 1);
+		rollback transaction;
+		return;
+	end;
+	if exists (
+		select 1 
+		from deleted d
+		left join Trip t on d.id = t.id
+		where t.id is null
+	)
+	begin
+		raiserror('Цілісність даних порушена: Видалення запису поїздки неможливе через зв’язані дані.', 16, 2)
+		rollback transaction;
+		return;
+	end;
+end;
+
