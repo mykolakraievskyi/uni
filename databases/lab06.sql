@@ -68,6 +68,21 @@ begin
     deallocate missingRatingCursor;
 end;
 
+--
+drop PROCEDURE if exists GetCustomersAfterDate
+
+CREATE PROCEDURE GetCustomersAfterDate
+    @StartDate DATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT *
+    FROM Customer
+    WHERE ClientFrom > @StartDate
+    ORDER BY ClientFrom ASC;
+END;
+
 --функція для обчислення віку
 create function getAge(@birthdate date)
 returns int 
