@@ -5,8 +5,6 @@ import com.google.gson.GsonBuilder;
 import org.example.Models.Student;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.yaml.snakeyaml.Yaml;
 
@@ -26,8 +24,24 @@ public class StudentReader {
             String name = dis.readUTF();
             int roomNumber = dis.readInt();
             double payment = dis.readDouble();
+            boolean discount = dis.readBoolean();
 
-            Student student = new Student(name, roomNumber, payment);
+            Student student = new Student(name, roomNumber, payment, discount);
+            return student;
+        } catch (Exception e) {
+            System.out.println("Error reading student: "+e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Student readStudent(String filename){
+        Student student = null;
+
+        try(FileInputStream fis = new FileInputStream(filename);
+            ObjectInputStream ois = new ObjectInputStream(fis)){
+            student=readStudent(ois);
+
             return student;
         } catch (Exception e) {
             System.out.println("Error reading student: "+e.getMessage());
@@ -35,19 +49,16 @@ public class StudentReader {
         return null;
     }
 
-    public static Student readOrderWithoutDishes(String filename){
+    public static Student readStudentBasedOnRoom(String filename){
         Student student = null;
-        int num=0;
-        List<Dish> dishList=new ArrayList<>();
 
-        try(FileInputStream fis = new FileInputStream(filename+"_orders");
-            ObjectInputStream ois = new ObjectInputStream(fis);){
-            num=ois.readInt();
-            client=readClient(ois);
+        try(FileInputStream fis = new FileInputStream(filename);
+            DataInputStream dis = new DataInputStream(fis)){
+            student=readStudent(dis);
 
-            return new Order(client, dishList, num);
+            return student;
         } catch (Exception e) {
-            System.out.println("Error reading order: "+e.getMessage());
+            System.out.println("Error reading student: "+e.getMessage());
         }
         return null;
     }
@@ -55,19 +66,17 @@ public class StudentReader {
     public static Student readStudentJson(String filename){
         try (Reader reader = new FileReader(filename);) {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            Student deserializedStudent= gson.fromJson(reader, Student.class);
-            return deserializedStudent;
+            return gson.fromJson(reader, Student.class);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static Student readOrderYaml(String filename){
+    public static Student readStudentYaml(String filename){
         try (InputStream inputStream = new FileInputStream(filename)) {
             Yaml yaml = new Yaml();
-            Order deserializedOrder = yaml.loadAs(inputStream, Order.class);
-            return deserializedOrder;
+            return yaml.loadAs(inputStream, Student.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
