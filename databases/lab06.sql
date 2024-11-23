@@ -151,3 +151,32 @@ begin
 	end;
 end;
 
+create trigger trg_beforeinsertcustomer
+on customer
+instead of insert
+as
+begin
+    -- перевірка, щоб number був більше 0
+    if exists (select 1 from inserted where number <= 0)
+    begin
+        raiserror ('number must be greater than 0', 16, 1);
+        rollback;
+        return;
+    end
+
+    -- вставка перевірених даних
+    insert into customer (number, firstname, lastname, dateofbirth, phonenumber, email, clientfrom)
+    select number, firstname, lastname, dateofbirth, phonenumber, email, clientfrom
+    from inserted;
+end;
+
+create trigger trg_afterupdatedriver
+on driver
+after update
+as
+begin
+    -- якщо rating null, оновлюємо його до 0
+    update driver
+    set rating = 3
+    where id in (select id from inserted where rating is null);
+end;
